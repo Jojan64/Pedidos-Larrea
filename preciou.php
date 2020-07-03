@@ -103,7 +103,7 @@ if ($_SESSION["loggedin"] != true) {
                                                <th class="text-center">#CODIGO</th>
                                                 <th>DESCRIPCIÓN</th>
                                                 <th class="text-right">Año</th>
-                                                <th class="text-center">Imagen</th>
+                                                <!--<th class="text-center">Imagen</th>-->
                                                 <th class="text-right">PRECIO</th>
                                             </tr>
                                         </thead>
@@ -160,7 +160,9 @@ if ($_SESSION["loggedin"] != true) {
                                                 while ($mostrar=mysqli_fetch_row($result)) {
                                                     ?>
                                                     <tr>
-                                                        <td class="item<?php echo $mostrar[0] ?>" data-precio="<?php echo $mostrar[4] //usar precio orita esta usando el id nomas ?>" data-nombre="<?php echo $mostrar[1] ?>" data-modelo="<?php echo $mostrar[4] ?>" 
+                                                        <td class="item<?php echo $mostrar[0] ?>" data-precio="<?php echo $mostrar[4] //usar precio orita esta usando el id nomas ?>" data-nombre="<?php echo $mostrar[1] ?>" 
+                                                        data-Año="<?php echo $mostrar[3] ?>" 
+                                                        data-item="<?php echo $mostrar[0] ?>" 
                                                         data-modelo="<?php echo $mostrar[4] ?>">
                                                         <?php echo $mostrar[0] ?></td>
 
@@ -337,12 +339,13 @@ if ($_SESSION["loggedin"] != true) {
         var precio = $("."+elementoActual).data("precio");
         var nombre = $("."+elementoActual).data("nombre");
         var modelo = $("."+elementoActual).data("modelo");
+        var año = $("."+elementoActual).data("año");
         // console.log(elementoActual);
         // console.log(precio+nombre+modelo);
         $("<tr>"+ 
-            "<td class='text-center'>"+precio+"</td>"+
+            "<td class='text-center'>"+elementoActual+"</td>"+
             "<td>"+nombre+"</td>"+
-            "<td class='text-right'>"+modelo+"</td>"+
+            "<td class='text-left'>"+año+"</td>"+
             "<td data-preciounico='"+precio+"' class='text-right valorUnico'>$ "+precio+"</td>"+ 
             "</tr>").prependTo("#items");
         autosuma();
