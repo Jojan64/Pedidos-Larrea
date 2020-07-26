@@ -102,9 +102,10 @@ if ($_SESSION["loggedin"] != true) {
                                             <tr>
                                                <th class="text-center">#CODIGO</th>
                                                 <th>DESCRIPCIÓN</th>
-                                                <th class="text-right">Año</th>
-                                                <!--<th class="text-center">Imagen</th>-->
+                                                <!-- <th class="text-right"></th> -->
+                                                <th class="text-left">AÑO</th>
                                                 <th class="text-right">PRECIO</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody id="items">
@@ -115,7 +116,7 @@ if ($_SESSION["loggedin"] != true) {
                                                 <th class="text-center">TOTAL</th>
                                                 <th></th> 
                                                 <th class="text-right"></th>
-                                                <th class="text-center"></th>
+                                                <!-- <th class="text-center"></th> -->
                                                 <th class="text-right" id="sumaTotal">$200</th>
                                             </tr>
                                         </thead>
@@ -165,11 +166,10 @@ if ($_SESSION["loggedin"] != true) {
                                                         data-item="<?php echo $mostrar[0] ?>" 
                                                         data-modelo="<?php echo $mostrar[4] ?>">
                                                         <?php echo $mostrar[0] ?></td>
-
                                                         <td><?php echo $mostrar[1] ?></td>
                                                         <td><?php echo $mostrar[2] ?></td>
                                                         <td><?php echo $mostrar[3] ?></td>
-                                                        <td href="contactos.php"><i class="icon-screen-desktop fa-fw"></i></td>
+                                                        <td><button class="btn btn-primary img" data-img="<?php echo $mostrar[0] ?>" data-toggle="modal" data-target="#exampleModal"><i class="icon-screen-desktop fa-fw"></i> Imagen</button></td>
                                                         <!--<td><label class="col-md-12">Mensaje</label></td>-->
                                                         <td><?php echo $mostrar[4] ?></td>
                                                         
@@ -186,7 +186,26 @@ if ($_SESSION["loggedin"] != true) {
                     </div>
                 </div>
                 <!-- /.row -->
-
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Imagen de Producto</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                      <img id="imgproducto" src="" width="100%" alt="">
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div>
             <!-- /.container-fluid -->
             <footer class="footer t-a-c">
@@ -346,10 +365,21 @@ if ($_SESSION["loggedin"] != true) {
             "<td class='text-center'>"+elementoActual+"</td>"+
             "<td>"+nombre+"</td>"+
             "<td class='text-left'>"+año+"</td>"+
-            "<td data-preciounico='"+precio+"' class='text-right valorUnico'>$ "+precio+"</td>"+ 
+            "<td data-preciounico='"+precio+"' class='text-right valorUnico'>$ "+precio+"</td>"+
+            "<td class='text-left'> <button class='btn btn-danger borrar'>x</button></td>"+
             "</tr>").prependTo("#items");
         autosuma();
+        //borrar item evento
+        $(".borrar").on("click", function(){
+            $(event.currentTarget).parents("tr").remove();
+            autosuma();
+        });
     });
+
+        $(".img").on("click", function(){
+            url =  $(event.currentTarget).data("img");
+            $("#imgproducto").attr("src","producto/"+url);
+        });
 
     </script>
 </body>
